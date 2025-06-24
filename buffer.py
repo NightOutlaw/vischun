@@ -23,3 +23,10 @@ async def get_safe(queue: asyncio.Queue, name: str):
     except Exception as e:
         print(f"[{name}] ❌ Помилка під час читання з буфера: {e}")
         return None
+
+async def get_safe(queue: asyncio.Queue, name: str):
+    try:
+        return await queue.get()
+    except Exception as e:
+        print(f"[{name}] ❌ Помилка під час читання з буфера: {e}")
+        return None

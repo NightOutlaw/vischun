@@ -1,27 +1,21 @@
 from flask import Flask, render_template, request, jsonify
-from event_sink import get_alerts
+from event_sink import get_alerts, get_counters
 
 app = Flask(__name__)
-
-# 🔁 Поточний статус потоків (можна оновлювати із get_alerts або окремої логіки)
-stream_status = {
-    "Supercam": {"packets": 0, "last_seen": None},
-    "ZalaOrlan": {"packets": 0, "last_seen": None},
-    "Orlan": {"packets": 0, "last_seen": None}
-}
-
-# 🧠 Позначення на ALERT'и (true/false)
 alert_verdicts = {}
 
 @app.route('/')
 def dashboard():
     alerts = get_alerts()
+    status = get_counters()      # тепер справжні дані замість хардкоду
     return render_template(
         "dashboard.html",
-        alerts=alerts[-100:],  # останні 100 подій
+        alerts=alerts[-100:],
         verdicts=alert_verdicts,
-        status=stream_status
+        status=status
     )
+
+alert_verdicts = {}
 
 @app.route('/api/verdict', methods=['POST'])
 def mark_verdict():

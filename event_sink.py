@@ -1,30 +1,27 @@
+# в event_sink.py
 from collections import deque, defaultdict
 from datetime import datetime
 
-# Максимальна кількість подій у памʼяті
 MAX_EVENTS = 500
-
-# Кільцева черга з останніми тривогами
 _alert_buffer = deque(maxlen=MAX_EVENTS)
-
-# Лічильник подій по потоках (не обовʼязковий, але зручно)
 _alert_counter_per_stream = defaultdict(int)
+_last_seen_per_stream = {}             # <— зберігаємо час останнього ALERT’у
 
 def register_alert(alert_obj: dict):
-    """Реєструє новий ALERT у буфері"""
+    stream = alert_obj.get("stream", "unknown")
+    now = alert_obj.setdefault("time", datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"))
+    _alert_counter_per_stream[stream] += 1
+    _last_seen_per_stream[stream] = now
     alert_obj["id"] = len(_alert_buffer)
-    if "time" not in alert_obj:
-        alert_obj["time"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-
-    stream_id = alert_obj.get("stream", "unknown")
-    _alert_counter_per_stream[stream_id] += 1
-
     _alert_buffer.append(alert_obj)
 
 def get_alerts():
-    """Повертає всі поточні ALERT'и"""
     return list(_alert_buffer)
 
-def get_alert_count_per_stream():
-    """Повертає кількість тривог по кожному потоку"""
-    return dict(_alert_counter_per_stream)
+def get_counters():
+    """Повернути лічильники і часу по потоках."""
+    return {
+      s: {"packets": _alert_counter_per_stream.get(s, 0),
+          "last_seen": _last_seen_per_stream.get(s)}
+      for s in _alert_counter_per_stream.keys()
+    }
