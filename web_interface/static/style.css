@@ -1,0 +1,23 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+h1, h2 {
+    color: #444;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+td, th {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+th {
+    background-color: #e0e0e0;
+}
+button {
+    margin: 2px;
+}

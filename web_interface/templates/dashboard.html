@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>📡 Моніторинг сигналів</title>
+    <meta http-equiv="refresh" content="1">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <h1>📡 Операторський інтерфейс</h1>
+
+    <section>
+        <h2>🟢 Статуси потоків</h2>
+        <table>
+            <tr>
+                <th>Потік</th>
+                <th>Пакетів</th>
+                <th>Остання активність</th>
+            </tr>
+            {% for stream_name, stat in status.items() %}
+            <tr>
+                <td>{{ stream_name }}</td>
+                <td>{{ stat.packets }}</td>
+                <td>{{ stat.last_seen or '—' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <section>
+        <h2>🚨 Останні тривоги</h2>
+        <table>
+            <tr>
+                <th>Час</th>
+                <th>Потік</th>
+                <th>Частота</th>
+                <th>Оцінка</th>
+                <th>Модулі</th>
+                <th>Оцінка</th>
+            </tr>
+            {% for alert in alerts %}
+            <tr>
+                <td>{{ alert.time }}</td>
+                <td>{{ alert.stream }}</td>
+                <td>{{ '%.2f MHz' % (alert.frequency / 1e6) }}</td>
+                <td>{{ alert.score }}</td>
+                <td>{{ alert.reasons | join(', ') }}</td>
+                <td>
+                    {% if verdicts.get(alert.id) %}
+                        ✅ {{ verdicts[alert.id] }}
+                    {% else %}
+                        <form method="POST" action="/api/verdict" onsubmit="return sendVerdict(event, {{ alert.id }})">
+                            <button type="submit" name="verdict" value="true">👍</button>
+                            <button type="submit" name="verdict" value="false">👎</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+<script>
+function sendVerdict(event, id) {
+    event.preventDefault();
+    const verdict = event.submitter.value;
+    fetch('/api/verdict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, verdict: verdict })
+    }).then(() => location.reload());
+    return false;
+}
+</script>
+
+</body>
+</html>

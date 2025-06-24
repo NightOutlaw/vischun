@@ -1,0 +1,100 @@
+streams:
+
+  Supercam:
+    port: 55551
+    freq_range: [990e6, 1485e6]
+    power_tracker:
+      window_size: 256
+      threshold_db: 2.5
+    energy_deviation:
+      alpha: 0.05
+      deviation_thresh_db: 1.8
+    phase_jitter:
+      jitter_thresh_deg: 18.0
+    entropy_detector:
+      bins: 64
+      entropy_thresh: 3.2
+    burst_detector:
+      power_thresh_db: 4.5
+      min_duration_ms: 3.0
+      sample_rate: 1_000_000
+    lte_suppressor:
+      residual_thresh_db: 2.0
+      smoothing: 0.05
+    scoring:
+      power_tracker: 0.1
+      power_tracker_cfg:
+        window_size: 256
+        threshold_db: 2.5
+      energy_deviation: 0.2
+      phase_jitter: 0.2
+      entropy_detector: 0.2
+      lte_suppressor: 0.1
+      burst_detector: 0.3
+      alert_threshold: 0.6
+
+  ZalaOrlan:
+    port: 55552
+    freq_range: [2160e6, 2400e6]
+    power_tracker:
+      window_size: 512
+      threshold_db: 2.0
+    energy_deviation:
+      alpha: 0.04
+      deviation_thresh_db: 1.5
+    phase_jitter:
+      jitter_thresh_deg: 15.0
+    entropy_detector:
+      bins: 64
+      entropy_thresh: 3.4
+    burst_detector:
+      power_thresh_db: 4.0
+      min_duration_ms: 4.0
+      sample_rate: 1_000_000
+    lte_suppressor:
+      residual_thresh_db: 2.5
+      smoothing: 0.04
+    scoring:
+      power_tracker: 0.1
+      power_tracker_cfg:
+        window_size: 256
+        threshold_db: 2.5
+      energy_deviation: 0.2
+      phase_jitter: 0.2
+      entropy_detector: 0.2
+      lte_suppressor: 0.1
+      burst_detector: 0.3
+      alert_threshold: 0.6
+
+  Orlan:
+    port: 55553
+    freq_range: [2400e6, 2700e6]
+    power_tracker:
+      window_size: 512
+      threshold_db: 1.8
+    energy_deviation:
+      alpha: 0.03
+      deviation_thresh_db: 1.2
+    phase_jitter:
+      jitter_thresh_deg: 12.0
+    entropy_detector:
+      bins: 64
+      entropy_thresh: 3.6
+    burst_detector:
+      power_thresh_db: 3.5
+      min_duration_ms: 5.0
+      sample_rate: 1_000_000
+    lte_suppressor:
+      residual_thresh_db: 2.0
+      smoothing: 0.03
+    scoring:
+      power_tracker: 0.1
+      power_tracker_cfg:
+        window_size: 256
+        threshold_db: 2.5
+      energy_deviation: 0.2
+      phase_jitter: 0.2
+      entropy_detector: 0.2
+      lte_suppressor: 0.1
+      burst_detector: 0.3
+      alert_threshold: 0.6
