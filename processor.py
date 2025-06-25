@@ -53,7 +53,9 @@ def process_iq_packet(json_obj, config: dict, stream_id: str):
     threshold = scoring_cfg.get("alert_threshold", 0.6)
 
     if score >= threshold:
-        frequency = json_obj.get("sampleFrequency", 0)
+        start_frequency = json_obj.get("startFrequency", 0)
+        end_frequency = json_obj.get("endFrequency", 0)
+        frequency = end_frequency - start_frequency
         alert = {
             "stream": stream_id,
             "frequency": frequency,

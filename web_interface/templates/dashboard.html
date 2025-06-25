@@ -15,7 +15,7 @@
         <table>
             <tr>
                 <th>Потік</th>
-                <th>Пакетів</th>
+                <th>Тривог</th>
                 <th>Остання активність</th>
             </tr>
             {% for stream_name, stat in status.items() %}
@@ -43,7 +43,7 @@
             <tr>
                 <td>{{ alert.time }}</td>
                 <td>{{ alert.stream }}</td>
-                <td>{{ '%.2f MHz' % (alert.frequency / 1e6) }}</td>
+                <td>{{ '%.2f MHz' % (alert.frequency / 1e3) }}</td>
                 <td>{{ alert.score }}</td>
                 <td>{{ alert.reasons | join(', ') }}</td>
                 <td>
