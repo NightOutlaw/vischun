@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class PhaseJitterAnalyzer:
     """
     Аналізатор нестабільності фази на основі диференційної фази та її розкиду.

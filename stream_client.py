@@ -2,6 +2,7 @@ import httpx
 import json
 from buffer import put_safe
 
+
 async def stream_json_lines(name: str, url: str, queue):
     count = 0
     async with httpx.AsyncClient(timeout=None) as client:

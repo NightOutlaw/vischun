@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.stats import entropy
 
+
 class EntropyDetector:
     """
     Виявляє сигнали з ритмічною активністю або зниженням ентропії,

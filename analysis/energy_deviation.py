@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class EnergyDeviationTracker:
     """
     Трекер адаптивної енергетичної відхилення на базі згладженого середнього.

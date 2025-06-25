@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class LTEBaselineSuppressor:
     """
     Пригнічує стабільний фон LTE, виявляє залишкову енергію поверх нього.

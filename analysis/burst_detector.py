@@ -1,6 +1,7 @@
 import numpy as np
 import time
 
+
 class BurstDetector:
     """
     FSM-модуль детекції burst-подій: фіксує початок, тривалість та завершення.

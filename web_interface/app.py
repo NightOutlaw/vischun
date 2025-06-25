@@ -4,6 +4,7 @@ from event_sink import get_alerts, get_counters
 app = Flask(__name__)
 alert_verdicts = {}
 
+
 @app.route('/')
 def dashboard():
     alerts = get_alerts()
@@ -15,7 +16,9 @@ def dashboard():
         status=status
     )
 
+
 alert_verdicts = {}
+
 
 @app.route('/api/verdict', methods=['POST'])
 def mark_verdict():

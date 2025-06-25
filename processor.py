@@ -16,11 +16,13 @@ _active_analysers = {}
 # Отримати поточний час в часовому поясі "Europe/Kiev"
 kiev_timezone = pytz.timezone("Europe/Kiev")
 
+
 def decode_samples(samples):
     if not samples or len(samples) % 2 != 0:
         print("⚠️ Некоректний масив IQ")
         return None
     return np.array(samples, dtype=np.float32).view(np.complex64)
+
 
 def process_iq_packet(json_obj, config: dict, stream_id: str):
     if not config or json_obj.get("payload") != "iq":

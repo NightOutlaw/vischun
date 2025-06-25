@@ -7,6 +7,7 @@ _alert_buffer = deque(maxlen=MAX_EVENTS)
 _alert_counter_per_stream = defaultdict(int)
 _last_seen_per_stream = {}             # <— зберігаємо час останнього ALERT’у
 
+
 def register_alert(alert_obj: dict):
     stream = alert_obj.get("stream", "unknown")
     now = alert_obj.setdefault("time", datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"))
@@ -15,8 +16,10 @@ def register_alert(alert_obj: dict):
     alert_obj["id"] = len(_alert_buffer)
     _alert_buffer.append(alert_obj)
 
+
 def get_alerts():
     return list(_alert_buffer)
+
 
 def get_counters():
     """Повернути лічильники і часу по потоках."""

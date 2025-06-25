@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # 💡 Функція без класу — повертає True/False
 def analyze_power(iq_array: np.ndarray, config: dict) -> bool:
     """

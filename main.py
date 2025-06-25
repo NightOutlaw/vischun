@@ -9,8 +9,10 @@ from stream_client import stream_json_lines
 from buffer import get_safe
 from processor import process_iq_packet
 
+
 def start_web_interface():
     web_app.run(debug=False, use_reloader=False, port=8050)
+
 
 async def consume_stream(stream_id: str, queue: asyncio.Queue, config: dict):
     print(f"[🔁] Споживач для: {stream_id}")
@@ -21,6 +23,7 @@ async def consume_stream(stream_id: str, queue: asyncio.Queue, config: dict):
         counter += 1
         if counter % 500 == 0:
             print(f"[{stream_id}] ✅ Оброблено {counter} IQ-пакетів")
+
 
 async def main():
     cfg_loader = ConfigLoader("config.yaml")
