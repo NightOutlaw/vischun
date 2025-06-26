@@ -1,6 +1,7 @@
 import yaml
 import os
 
+
 class ConfigLoader:
     """
     Завантажує конфігурацію з YAML і надає доступ до параметрів для потоків.
